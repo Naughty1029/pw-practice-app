@@ -38,3 +38,14 @@ test("User facing locators",async({page})=>{
   await page.getByTestId('SignIn')
   await page.getByTitle('IoT Dashboard').click();
 })
+
+test("locationg child elements",async({page})=>{
+  //どちらでも可能
+  await page.locator('nb-card nb-radio :text-is("Option 1")').click();
+  await page.locator('nb-card').locator('nb-radio').locator(':text-is("Option 1")').click();
+
+  await page.locator('nb-card').getByRole('button',{name:"Sign in"}).first().click();
+
+  //indexを指定することはなるべく避ける
+  await page.locator('nb-card').nth(3).getByRole('button').click();
+})
