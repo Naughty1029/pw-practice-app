@@ -31,8 +31,7 @@ test('alternative waits', async({page})=> {
 
   //__ wait for network calls to be completed (NOT RECOMMENDED)
   await page.waitForLoadState('networkidle');
-  await page.waitForTimeout(5000);
-  
+
   const text = await successButton.allTextContents();
   expect(text).toContain('Data loaded with AJAX get request.');
 })
