@@ -72,7 +72,7 @@ test("Reusing the locators",async({page})=>{
   await basicForm.locator('nb-checkbox').click();
   await basicForm.getByRole('button').click();
 
-  expect(emailField).toHaveValue('test@test.com');
+  await expect(emailField).toHaveValue('test@test.com');
 })
 
 
@@ -94,4 +94,23 @@ test("extrating values",async({page})=>{
 
   const placeholderValue = await emailField.getAttribute('placeholder');
   expect(placeholderValue).toEqual('Email');
+})
+
+test("assertions",async({page})=>{
+  const basicFormButton = page.locator('nb-card').filter( {hasText:'Basic form'}).locator('button');
+
+  //Generaln assertions
+  const value = 5;
+  expect(value).toEqual(5);
+
+  const text = await basicFormButton.textContent();
+  expect(text).toEqual('Submit');
+
+  //Locator assertions
+  //awaitが必要
+  await expect(basicFormButton).toHaveText('Submit');
+
+  //Soft Assertions
+  //Timeoutしても処理が継続される
+  await expect.soft(basicFormButton).toHaveText('Submit');
 })
