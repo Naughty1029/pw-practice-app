@@ -82,3 +82,14 @@ test('Lists and dropdowns', async({page})=>{
     }
   }
 })
+
+test('tooltips', async({page})=>{
+  await page.getByText('Modal & Overlays').click();
+  await page.getByText('Tooltip').click();
+
+  const toolTipCart =  page.locator('nb-card',{hasText:"Tooltip Placements"});
+  await toolTipCart.getByRole('button',{name:'Top'}).hover();
+
+  const tooltip = await page.locator('nb-tooltip').textContent();
+  expect(tooltip).toEqual('This is a tooltip');
+})
